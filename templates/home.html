@@ -1,25 +1,30 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+
 {% block content %}
 <div class="room-container">
-  <form action="" method="get" class="room-form">
+  <form action="{% url 'create_room' %}" method="post" class="room-form">
+    {% csrf_token %}
+
+        <!-- Input field for username -->
+    <input type="text" name="username" placeholder="Enter Username" />
+    <!-- Input field for room name -->
     <input type="text" name="room_name" placeholder="Enter Room Name" />
-  </form>
-  <div class="room-buttons">
+
+
     
-    <!-- Join or Create Room -->
-    <form action="" method="get">
+    <!-- Buttons for Joining or Creating Room -->
+    <div class="room-buttons">
+      <!-- Join Room button -->
       <button type="submit" class="btn btn-primary" name="action" value="join">
         Join Room
       </button>
-      <button
-        type="submit"
-        class="btn btn-primary"
-        name="action"
-        value="create"
-      >
+
+      <!-- Create Room button -->
+      <button type="submit" class="btn btn-primary" name="action" value="create">
         Create Room
       </button>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
 {% endblock %}
