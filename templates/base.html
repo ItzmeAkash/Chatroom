@@ -1,61 +1,59 @@
 {% load static%}
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}ChatRoom{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/chatroom.css' %}"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>{% block title %}ChatRoom{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/chatroom.css' %}">
-
-</head>
-
-<body>
+  <body>
     <nav>
-        
-        <a  href="{% url 'home' %}">
-            <h1>ChatRoom</h1>
-        </a>
-        <ul>
+      <a href="{% url 'home' %}">
+        <h1>ChatRoom</h1>
+      </a>
+      <ul>
+        {% if user.is_authenticated %}
+        <li>Hi, {{ user.username }}</li>
+        <li class="logout">
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+          </form>
+        </li>
+        {% else %}
+        <li>
+          <a href="#" id="login-link" data-url="{% url 'login' %}">Login</a>
+        </li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    <main>
+      <div class="content">{% block content %} {% endblock %}</div>
 
-          {% if user.is_authenticated %}
-          <li>Hi, {{ user.username }}</li>
-          <li class="logout">
-            <form action="{% url 'logout' %}" method="post">
-              {% csrf_token %}
-              <button type="submit">Log Out</button>
-            </form>
-          </li>
-          {% else %}
-          <li><a href="#" id="login-link" data-url="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-  <main>
-    <div class="content">
-      {% block content %}
-      {% endblock %}
-    </div>
-    
       <!-- Login form-->
-      {% block login_form %}
-      {% endblock %}
-    
-  </main>
+      {% block login_form %} {% endblock %}
+    </main>
 
-  <script>
-    // JavaScript to toggle visibility of the login form when "Login" link is clicked
-    document.getElementById("login-link").addEventListener("click", function(event) {
-      // Prevent the default link behavior
-      event.preventDefault();
-      
-      // Get the URL from the data attribute
-      var loginUrl = this.getAttribute("data-url");
-      
-      // Redirect to the login page
-      window.location.href = loginUrl;
-    });
-  </script>
-</body>
+    <script>
+      // JavaScript to toggle visibility of the login form when "Login" link is clicked
+      document
+        .getElementById("login-link")
+        .addEventListener("click", function (event) {
+          // Prevent the default link behavior
+          event.preventDefault();
 
+          // Get the URL from the data attribute
+          var loginUrl = this.getAttribute("data-url");
+
+          // Redirect to the login page
+          window.location.href = loginUrl;
+        });
+    </script>
+  </body>
 </html>

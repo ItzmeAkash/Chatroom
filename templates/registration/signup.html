@@ -1,7 +1,4 @@
-{% extends "base.html" %}
-
-{% block title %}Sign Up{% endblock %}
-
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} 
 {% block content %}
 <div class="signup-container">
   <h2>Sign up</h2>
@@ -9,26 +6,21 @@
     {% csrf_token %}
 
     <!-- Looping through form fields -->
-    {% for field in form %}
-      {% if field.field.required %}
-      <div class="form-group">
+    {% for field in form %} {% if field.field.required %}
+    <div class="form-group">
+      <!-- Displaying the label for the field -->
+      {{ field.label_tag }} {{ field }} {% if field.errors %}
 
-        <!-- Displaying the label for the field -->
-        {{ field.label_tag }}
-        {{ field }}
-        {% if field.errors %}
-
-         <!-- Displaying errors if any -->
-        <ul class="errorlist">
-          {% for error in field.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </div>
+      <!-- Displaying errors if any -->
+      <ul class="errorlist">
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
-    {% endfor %}
-    
+    </div>
+    {% endif %} {% endfor %}
+
     <!-- Checking for non-field errors -->
 
     {% if form.non_field_errors %}
@@ -43,4 +35,4 @@
     <button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
 </div>
-{% endblock %} 
+{% endblock %}
