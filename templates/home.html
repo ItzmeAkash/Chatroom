@@ -2,15 +2,17 @@
 
 {% block title %}Home{% endblock %}
 
-{% comment %} {% block content %}
-{% if user.is_authenticated %}
-Hi {{ user.username }}!
-<form action="{% url 'logout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">Log Out</button>
-</form>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a>
-{% endif %}
-{% endblock %} {% endcomment %}
+{% block content %}
+<div class="room-container">
+  <form action="" method="get" class="room-form">
+    <input type="text" name="room_name" placeholder="Enter Room Name">
+  </form>
+  <div class="room-buttons">
+    <!-- Join or Create Room -->
+    <form action="" method="get">
+      <button type="submit" class="btn btn-primary" name="action" value="join">Join Room</button>
+      <button type="submit" class="btn btn-primary" name="action" value="create">Create Room</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

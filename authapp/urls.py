@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import SignUpView,loginView,home
+from .views import SignUpView,home
 from django.views.generic.base import TemplateView 
 
 

@@ -7,12 +7,18 @@
   <h2>Sign up</h2>
   <form method="post" class="signup-form">
     {% csrf_token %}
+
+    <!-- Looping through form fields -->
     {% for field in form %}
       {% if field.field.required %}
       <div class="form-group">
+
+        <!-- Displaying the label for the field -->
         {{ field.label_tag }}
         {{ field }}
         {% if field.errors %}
+
+         <!-- Displaying errors if any -->
         <ul class="errorlist">
           {% for error in field.errors %}
           <li>{{ error }}</li>
@@ -22,6 +28,9 @@
       </div>
       {% endif %}
     {% endfor %}
+    
+    <!-- Checking for non-field errors -->
+
     {% if form.non_field_errors %}
     <div class="form-group">
       <ul class="errorlist">

@@ -6,13 +6,17 @@
   <meta charset="utf-8">
   <title>{% block title %}ChatRoom{% endblock %}</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/chatroom.css' %}">
-  
+
 </head>
 
 <body>
     <nav>
-        <h1>ChatRoom</h1>
+        
+        <a  href="{% url 'home' %}">
+            <h1>ChatRoom</h1>
+        </a>
         <ul>
+
           {% if user.is_authenticated %}
           <li>Hi, {{ user.username }}</li>
           <li class="logout">
@@ -33,7 +37,7 @@
       {% endblock %}
     </div>
     
-      <!-- Login form content goes here -->
+      <!-- Login form-->
       {% block login_form %}
       {% endblock %}
     
