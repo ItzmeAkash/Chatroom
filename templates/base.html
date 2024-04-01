@@ -9,30 +9,37 @@
       type="text/css"
       href="{% static 'css/chatroom.css' %}"
     />
+
+  <script>
+      {% block scriptfile %}{% endblock %}
+  </script>
+  
   </head>
 
   <body>
     <nav>
       <a href="{% url 'home' %}">
-        <h1>ChatRoom</h1>
+          <h1>ChatRoom</h1>
       </a>
       <ul>
-        {% if user.is_authenticated %}
-        <li>Hi, {{ user.username }}</li>
-        <li class="logout">
-          <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Log Out</button>
-          </form>
-        </li>
-        {% else %}
-        <li>
-          <a href="#" id="login-link" data-url="{% url 'login' %}">Login</a>
-        </li>
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-        {% endif %}
+        <!--Checking the User is Authenticated-->
+          {% if user.is_authenticated %}
+          <li>Hi, {{ user.username }}</li>
+          <li class="logout">
+              <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit">Log Out</button>
+              </form>
+          </li>
+          {% else %}
+          <!--If its Not Authenticated Display this-->
+          <li>
+              <a href="#" id="login-link" data-url="{% url 'login' %}">Login</a>
+          </li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
       </ul>
-    </nav>
+  </nav>
     <main>
       <div class="content">{% block content %} {% endblock %}</div>
 
