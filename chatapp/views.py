@@ -34,6 +34,7 @@ def CreateRoomView(request):
             
     return render(request, 'home.html')
 
+#Join in the Room
 @login_required
 def JoinRoomView(request):
     
